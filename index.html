@@ -3,87 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TKM Ashly</title>
+  <title>Para Ashly 💜</title>
   <style>
     :root {
-      --bg1: #1a1d3a;
-      --bg2: #2b3570;
-      --accent: #ff6b8a;
-      --accent2: #ff9ab2;
-      --txt: #fff5f8;
-      --sparkle: #ffffff;
+      --bg1: #1a0f2d;
+      --bg2: #2d1b4e;
+      --accent: #9d4edd;
+      --accent2: #c77dff;
+      --neon: #e0aaff;
+      --txt: #f8f0ff;
+      --sparkle: #e0aaff;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
     body {
       font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
       color: var(--txt);
-      background: radial-gradient(circle at top left, #2e3a8c 0%, transparent 50%),
-                  radial-gradient(circle at bottom right, #1c2257 0%, transparent 50%),
-                  linear-gradient(160deg, var(--bg1), var(--bg2));
+      background: radial-gradient(ellipse at top, #2a0a4a 0%, #1a0f2d 100%);
       overflow: hidden;
       position: relative;
     }
-    .background-images {
+    
+    /* Background Slideshow */
+    .background-slideshow {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
-      opacity: 0.3;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
+      overflow: hidden;
     }
-    .background-images img {
-      width: min(300px, 30vw);
-      height: auto;
+    
+    .background-slideshow img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border-radius: 15px;
-      animation: fadeInOut 10s ease-in-out infinite;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.05); }
+    
+    .background-slideshow img.active {
+      opacity: 0.6;
     }
+    
     .wrap {
       height: 100%;
       display: grid;
       place-items: center;
       padding: 24px;
     }
+    
     .card {
       width: min(700px, 94vw);
       border-radius: 30px;
       padding: 32px;
       backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+      background: rgba(45, 27, 78, 0.4);
+      border: 2px solid rgba(157, 78, 221, 0.3);
+      box-shadow: 0 25px 70px rgba(45, 27, 78, 0.6);
       text-align: center;
       position: relative;
-      animation: glow 2s ease-in-out infinite alternate;
       z-index: 1;
+      animation: glow 3s ease-in-out infinite alternate;
     }
+    
     @keyframes glow {
-      from { box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4); }
-      to { box-shadow: 0 25px 70px rgba(255, 107, 138, 0.3); }
+      from { box-shadow: 0 0 20px rgba(157, 78, 221, 0.3); }
+      to { box-shadow: 0 0 40px rgba(224, 170, 255, 0.5); }
     }
+    
     h1 {
       margin: 0 0 20px;
       font-size: clamp(24px, 4vw, 38px);
       font-weight: 800;
-      text-shadow: 0 2px 10px rgba(255, 107, 138, 0.5);
+      text-shadow: 0 0 15px var(--neon);
+      background: linear-gradient(45deg, #fff, var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       animation: pulseText 2s ease-in-out infinite;
     }
+    
     @keyframes pulseText {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+      0% { transform: scale(1); text-shadow: 0 0 15px var(--neon); }
+      50% { transform: scale(1.05); text-shadow: 0 0 25px var(--neon); }
+      100% { transform: scale(1); text-shadow: 0 0 15px var(--neon); }
     }
+    
     button {
       appearance: none;
       border: none;
@@ -92,34 +99,28 @@
       border-radius: 999px;
       font-weight: 700;
       font-size: 20px;
-      letter-spacing: 0.5px;
-      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      letter-spacing: 1px;
+      background: linear-gradient(45deg, var(--accent), var(--accent2));
       color: white;
-      box-shadow: 0 10px 30px rgba(255, 107, 138, 0.5);
-      transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.3s;
+      box-shadow: 0 0 20px rgba(157, 78, 221, 0.6);
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
       z-index: 2;
+      text-transform: uppercase;
     }
-    button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-      transition: left 0.4s;
-    }
-    button:hover::before { left: 100%; }
+    
     button:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 12px 40px rgba(255, 107, 138, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(224, 170, 255, 0.8);
+      letter-spacing: 2px;
     }
+    
     button:active {
-      transform: translateY(2px) scale(0.98);
-      box-shadow: 0 8px 20px rgba(255, 107, 138, 0.4);
+      transform: translateY(1px);
     }
+    
+    /* Floating Hearts */
     .heart {
       position: fixed;
       left: var(--x, 50%);
@@ -128,11 +129,14 @@
       height: var(--size, 20px);
       transform: rotate(45deg) scale(0.8);
       background: var(--color, var(--accent));
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 15px var(--neon);
       border-radius: 6px;
-      animation: floatUp var(--dur, 3s) ease-in forwards, sway var(--dur, 3s) ease-in-out infinite;
+      animation: floatUp var(--dur, 3s) ease-in forwards, 
+                 sway var(--dur, 3s) ease-in-out infinite;
       z-index: 0;
+      opacity: 0.8;
     }
+    
     .heart::before, .heart::after {
       content: '';
       position: absolute;
@@ -140,86 +144,247 @@
       height: 100%;
       background: inherit;
       border-radius: 50%;
+      box-shadow: inherit;
     }
     .heart::before { left: -50%; }
     .heart::after { top: -50%; }
 
     @keyframes floatUp {
-      0% { bottom: 0; opacity: 1; }
-      50% { bottom: 50vh; opacity: 1; }
-      100% { bottom: 100vh; opacity: 0; }
+      0% { bottom: 0; opacity: 0.8; transform: rotate(45deg) scale(0.8); }
+      50% { opacity: 1; transform: rotate(45deg) scale(1); }
+      100% { bottom: 100vh; opacity: 0; transform: rotate(45deg) scale(0.5); }
     }
 
     @keyframes sway {
       0%, 100% { transform: rotate(45deg) translateX(0); }
       50% { transform: rotate(45deg) translateX(var(--swayX, 20px)); }
     }
-
-    .sparkle {
+    
+    /* Floating Messages */
+    .message {
       position: fixed;
-      width: var(--size, 6px);
-      height: var(--size, 6px);
-      background: var(--sparkle);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--sparkle);
-      animation: sparkleFade var(--dur, 2s) ease-out forwards;
-      z-index: 0;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(0);
+      background: rgba(157, 78, 221, 0.9);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      z-index: 1000;
+      white-space: nowrap;
+      animation: floatMessage 5s ease-out forwards;
+      backdrop-filter: blur(5px);
+      border: 1px solid var(--neon);
     }
-    @keyframes sparkleFade {
-      0% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1.5); }
+    
+    @keyframes floatMessage {
+      0% { opacity: 0; transform: translateX(-50%) translateY(0); }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-100vh); }
+    }
+    
+    /* Music Player */
+    .music-player {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 100;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(157, 78, 221, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(224, 170, 255, 0.6);
+      transition: all 0.3s ease;
+      border: 2px solid var(--neon);
+    }
+    
+    .music-player:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(224, 170, 255, 0.9);
+    }
+    
+    .music-player i {
+      color: white;
+      font-size: 24px;
+    }
+    
+    /* Magical Particles */
+    .particle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: var(--neon);
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: 0 0 10px 2px var(--neon);
+      z-index: 0;
+      animation: floatParticle 10s linear infinite;
+    }
+    
+    @keyframes floatParticle {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { 
+        transform: translateY(-100vh) rotate(360deg); 
+        opacity: 0; 
+      }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <div class="background-images">
-    <img src="https://imgur.com/Ew6HoTp.jpg" alt="Background 1" />
-    <img src="https://imgur.com/u6pxLqo.jpg" alt="Background 2" />
-    <img src="https://imgur.com/EySwIat.jpg" alt="Background 3" />
-    <img src="https://imgur.com/pWHUJf1.jpg" alt="Background 4" />
-    <img src="https://imgur.com/ADo4znv.jpg" alt="Background 5" />
-    <img src="https://imgur.com/QPirKKc.jpg" alt="Background 6" />
+  <!-- Background Slideshow -->
+  <div class="background-slideshow" id="slideshow">
+    <img src="https://i.imgur.com/Ew6HoTp.jpg" alt="Imagen 1" class="active">
+    <img src="https://i.imgur.com/u6pxLqo.jpg" alt="Imagen 2">
+    <img src="https://i.imgur.com/EySwIat.jpg" alt="Imagen 3">
+    <img src="https://i.imgur.com/pWHUJf1.jpg" alt="Imagen 4">
+    <img src="https://i.imgur.com/ADo4znv.jpg" alt="Imagen 5">
+    <img src="https://i.imgur.com/QPirKKc.jpg" alt="Imagen 6">
   </div>
+  
   <div class="wrap">
     <div class="card">
-      <h1>TKM Ashly, eres mi estrellita 💖</h1>
-      <button id="btn">¡Llena de amor!</button>
+      <h1>Para mi Ashly 💜</h1>
+      <button id="btn">¡Haz llover amor!</button>
     </div>
   </div>
+  
+  <!-- Music Player -->
+  <div class="music-player" id="musicToggle" title="Reproducir música">
+    <i class="fas fa-music"></i>
+  </div>
+  
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
+    // DOM Elements
     const btn = document.getElementById('btn');
-    function rand(min, max) { return Math.random() * (max - min) + min; }
+    const musicToggle = document.getElementById('musicToggle');
+    const bgMusic = document.getElementById('bgMusic');
+    const slideshow = document.getElementById('slideshow');
+    const images = slideshow.getElementsByTagName('img');
+    let currentImage = 0;
+    let isMusicPlaying = false;
+    
+    // Romantic messages in both languages
+    const messages = [
+      "You are my star, Ashly 💫",
+      "Siempre serás mi luz 💜",
+      "Forever with you 💖",
+      "Eres mi razón de sonreír 😊",
+      "Mi amor por ti es infinito 💫",
+      "You complete me 💝",
+      "Eres mi sueño hecho realidad ✨",
+      "My heart belongs to you 💗"
+    ];
+    
+    // Helper functions
+    function rand(min, max) { 
+      return Math.random() * (max - min) + min; 
+    }
+    
+    // Heart creation
     function spawnHeart() {
       const h = document.createElement('div');
       h.className = 'heart';
-      h.style.setProperty('--color', `hsl(${rand(330, 350)}, 80%, 60%)`);
+      const hue = rand(270, 300); // Purple-pink range
+      h.style.setProperty('--color', `hsl(${hue}, 80%, 65%)`);
       h.style.setProperty('--size', rand(16, 28) + 'px');
       h.style.setProperty('--x', rand(0, 100) + 'vw');
       h.style.setProperty('--dur', rand(2.5, 4.5) + 's');
       h.style.setProperty('--swayX', rand(-30, 30) + 'px');
       document.body.appendChild(h);
-      h.addEventListener('animationend', () => h.remove());
+      
+      // Remove heart after animation
+      setTimeout(() => h.remove(), 5000);
     }
-    function spawnSparkle() {
-      const s = document.createElement('div');
-      s.className = 'sparkle';
-      s.style.left = rand(0, 100) + 'vw';
-      s.style.top = rand(0, 100) + 'vh';
-      s.style.setProperty('--size', rand(4, 8) + 'px');
-      s.style.setProperty('--dur', rand(1, 2) + 's');
-      document.body.appendChild(s);
-      s.addEventListener('animationend', () => s.remove());
+    
+    // Create magical particles
+    function createParticle() {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = rand(0, 100) + 'vw';
+      p.style.top = '100vh';
+      p.style.width = p.style.height = rand(2, 6) + 'px';
+      p.style.animationDuration = rand(5, 15) + 's';
+      p.style.animationDelay = rand(0, 5) + 's';
+      document.body.appendChild(p);
+      
+      // Remove particle after animation
+      setTimeout(() => p.remove(), 15000);
     }
+    
+    // Show floating message
+    function showMessage() {
+      const msg = document.createElement('div');
+      msg.className = 'message';
+      msg.textContent = messages[Math.floor(Math.random() * messages.length)];
+      msg.style.left = rand(20, 80) + 'vw';
+      document.body.appendChild(msg);
+      
+      // Remove message after animation
+      setTimeout(() => msg.remove(), 5000);
+    }
+    
+    // Fill screen with hearts
     function fillHearts() {
-      for (let i = 0; i < 120; i++) {
-        setTimeout(spawnHeart, i * 25);
-        if (i % 2 === 0) setTimeout(spawnSparkle, i * 35);
+      const heartCount = 50;
+      for (let i = 0; i < heartCount; i++) {
+        setTimeout(() => {
+          spawnHeart();
+          if (i % 5 === 0) showMessage();
+        }, i * 100);
       }
     }
-    btn.addEventListener('click', fillHearts);
-    for (let i = 0; i < 10; i++) {
-      setTimeout(spawnSparkle, i * 200);
+    
+    // Background slideshow
+    function changeBackground() {
+      images[currentImage].classList.remove('active');
+      currentImage = (currentImage + 1) % images.length;
+      images[currentImage].classList.add('active');
     }
+    
+    // Event Listeners
+    btn.addEventListener('click', fillHearts);
+    
+    musicToggle.addEventListener('click', () => {
+      if (isMusicPlaying) {
+        bgMusic.pause();
+        musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+        musicToggle.title = 'Reproducir música';
+      } else {
+        bgMusic.play().catch(e => console.log('Audio playback failed:', e));
+        musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+        musicToggle.title = 'Pausar música';
+      }
+      isMusicPlaying = !isMusicPlaying;
+    });
+    
+    // Initialize
+    setInterval(changeBackground, 6000); // Change image every 6 seconds
+    
+    // Create initial particles
+    for (let i = 0; i < 20; i++) {
+      setTimeout(createParticle, i * 500);
+      setTimeout(createParticle, i * 500 + 250);
+    }
+    
+    // Continuous particle effect
+    setInterval(() => {
+      if (Math.random() > 0.7) createParticle();
+    }, 300);
   </script>
 </body>
 </html>
