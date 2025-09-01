@@ -41,11 +41,17 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 1s ease-in-out;
+      /* Esta regla es para las imágenes iniciales, que serán eliminadas por JS */
     }
-    
-    .background-slideshow img.active {
-      opacity: 0.6;
+
+    .background-slideshow .random-image {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 4s ease-in-out, transform 4s ease-in-out;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(224, 170, 255, 0.5);
+      transform: scale(0.9);
+      object-fit: cover;
     }
     
     .wrap {
@@ -265,6 +271,13 @@
   </div>
   
   <audio id="bgMusic" loop>
+    <!--
+      Respondiendo a tu pregunta:
+      Puedes cambiar la canción aquí, pero el enlace en "src" debe ser un enlace directo a un archivo de audio (por ejemplo, que termine en .mp3, .ogg, o .wav).
+      No puedes usar un enlace a una página web como YouTube.
+      
+      También puedes usar un archivo local. Si guardas una canción llamada "mi_cancion.mp3" en la misma carpeta que este archivo, puedes cambiar el src a "mi_cancion.mp3".
+    -->
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
   </audio>
 
@@ -275,19 +288,44 @@
     const bgMusic = document.getElementById('bgMusic');
     const slideshow = document.getElementById('slideshow');
     const images = slideshow.getElementsByTagName('img');
-    let currentImage = 0;
     let isMusicPlaying = false;
     
     // Romantic messages in both languages
     const messages = [
-      "You are my star, Ashly 💫",
+    "You are my star, Ashly 💫",
       "Siempre serás mi luz 💜",
       "Forever with you 💖",
       "Eres mi razón de sonreír 😊",
       "Mi amor por ti es infinito 💫",
       "You complete me 💝",
       "Eres mi sueño hecho realidad ✨",
-      "My heart belongs to you 💗"
+      "My heart belongs to you 💗",
+      "You are my everything, my forever love 💞",
+      "Eres la melodía que alegra mi vida 🎶",
+      "Without you, life has no meaning 💔",
+      "Eres mi lugar seguro 🏡❤️",
+      "Your smile lights up my world 🌟",
+      "Mi corazón late solo por ti 💓",
+      "Every moment with you is magical 🪄",
+      "Eres mi destino y mi fortuna 💎",
+      "You are the melody that makes my soul dance 🎶",
+      "Eres mi todo, mi amor eterno 💞",
+      "You are my safe haven 🏡❤️",
+      "Te amo más que a las estrellas del cielo 🌌",
+      "My heart beats only for you 💓",
+      "Contigo todo es perfecto 💍",
+      "You are my destiny and my blessing 💎",
+      "Sin ti, nada tendría sentido 💔",
+      "With you, everything feels perfect 💍",
+      "Cada momento contigo es mágico 🪄",
+      "Eres mi razón de sonreír 😊",
+      "You complete me 💝",
+      "Tu sonrisa ilumina mi mundo 🌟",
+      "Eres mi sueño hecho realidad ✨",
+      "Forever with you 💖",
+      "Mi amor por ti es infinito 💫",
+      "Eres mi estrella, mi luz en la oscuridad 💜",
+      "You are my star, Ashly 💫"
     ];
     
     // Helper functions
@@ -349,11 +387,43 @@
       }
     }
     
-    // Background slideshow
-    function changeBackground() {
-      images[currentImage].classList.remove('active');
-      currentImage = (currentImage + 1) % images.length;
-      images[currentImage].classList.add('active');
+    // Background slideshow (Nueva lógica de imágenes aleatorias)
+    const imageSources = Array.from(images).map(img => img.src);
+    Array.from(images).forEach(img => img.remove()); // Eliminar imágenes estáticas originales
+
+    function spawnRandomImage() {
+      const slideshowContainer = document.getElementById('slideshow');
+      
+      const img = document.createElement('img');
+      img.className = 'random-image';
+      
+      const randomSrc = imageSources[Math.floor(Math.random() * imageSources.length)];
+      img.src = randomSrc;
+      
+      const size = rand(150, 400);
+      img.style.width = `${size}px`;
+      img.style.height = `${size}px`;
+      
+      // Posicionar la imagen en cualquier lugar, incluso parcialmente fuera de la pantalla
+      const top = rand(-20, 80);
+      const left = rand(-20, 80);
+      img.style.top = `${top}vh`;
+      img.style.left = `${left}vw`;
+      
+      slideshowContainer.appendChild(img);
+      
+      // Animación de entrada
+      setTimeout(() => {
+        img.style.opacity = 0.6;
+        img.style.transform = `scale(1)`;
+      }, 100);
+      
+      // Animación de salida y eliminación
+      setTimeout(() => {
+        img.style.opacity = 0;
+        img.style.transform = `scale(0.9)`;
+        setTimeout(() => img.remove(), 4000); // Eliminar después de la transición
+      }, 5000); // Mostrar durante 5 segundos
     }
     
     // Event Listeners
@@ -373,7 +443,8 @@
     });
     
     // Initialize
-    setInterval(changeBackground, 6000); // Change image every 6 seconds
+    spawnRandomImage(); // Generar una imagen inmediatamente
+    setInterval(spawnRandomImage, 2500); // Generar una nueva imagen cada 2.5 segundos
     
     // Create initial particles
     for (let i = 0; i < 20; i++) {
