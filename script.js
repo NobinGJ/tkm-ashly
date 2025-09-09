@@ -144,6 +144,78 @@ function spawnRandomImage() {
   }, 5000); // Mostrar durante 5 segundos
 }
 
+// Flower Rain Effect
+function createFlower() {
+  const flower = document.createElement('div');
+  flower.className = 'flower';
+  
+  // Random position across the width of the screen
+  flower.style.left = Math.random() * 100 + 'vw';
+  
+  // Random size between 25px and 40px for better visibility
+  const size = Math.random() * 15 + 25;
+  flower.style.width = size + 'px';
+  flower.style.height = size + 'px';
+  
+  // Random animation duration between 8s and 15s for better visibility
+  const duration = Math.random() * 7 + 8;
+  flower.style.animationDuration = duration + 's';
+  
+  // Random delay to stagger the flowers
+  flower.style.animationDelay = (Math.random() * 2) + 's';
+  
+  // Random horizontal movement
+  const startX = (Math.random() * 20) - 10;
+  const endX = (Math.random() * 40) - 20;
+  
+  flower.style.setProperty('--startX', startX + 'px');
+  flower.style.setProperty('--endX', endX + 'px');
+  
+  document.body.appendChild(flower);
+  
+  // Remove flower after animation completes
+  setTimeout(() => {
+    if (flower.parentNode) {
+      flower.remove();
+    }
+  }, duration * 1000);
+}
+
+// Start flower rain
+function startFlowerRain() {
+  // Clear any existing interval to prevent duplicates
+  if (window.flowerRainInterval) {
+    clearInterval(window.flowerRainInterval);
+  }
+  
+  // Create initial flowers
+  for (let i = 0; i < 30; i++) {
+    setTimeout(createFlower, Math.random() * 3000);
+  }
+  
+  // Continue creating flowers at random intervals
+  window.flowerRainInterval = setInterval(() => {
+    createFlower();
+  }, 300);
+}
+
+// Start the flower rain when the page loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startFlowerRain);
+} else {
+  startFlowerRain();
+}
+
+// Pause flower rain when window loses focus to save resources
+window.addEventListener('blur', () => {
+  if (window.flowerRainInterval) {
+    clearInterval(window.flowerRainInterval);
+  }
+});
+
+// Resume flower rain when window regains focus
+window.addEventListener('focus', startFlowerRain);
+
 // Event Listeners
 btn.addEventListener('click', fillHearts);
 
